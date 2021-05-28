@@ -21,10 +21,13 @@ export default class Main extends Component {
 	};
 
 	render() {
+		// if formSwitcher is false, assign Login, else assign Register component
+		const form = !this.state.formSwitcher ? <Login /> : <Register />;
+
 		return (
 			<>
 				<div className="mainBlock">
-					<Login />
+					{ form }
 					{/* If formSwitcher is false show "Not Registered Login Form */}
 					{!this.state.formSwitcher ? (
 						<span className="underline">
