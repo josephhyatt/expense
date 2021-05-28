@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react";
 import React, { Component } from "react";
 import "./Main.css";
+import Login from "./Forms/Login";
 
 export default class Main extends Component {
 	state = {
@@ -11,7 +12,9 @@ export default class Main extends Component {
 	render() {
 		return (
 			<>
-				<div className="mainBlock">block</div>
+				<div className="mainBlock">
+					<Login />
+				</div>
 			</>
 		);
 	}
