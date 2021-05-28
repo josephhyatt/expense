@@ -14,12 +14,10 @@ export default class Main extends Component {
 			<>
 				<div className="mainBlock">
 					<Login />
-                    <span className="underline">
-                        Not Registered?
-                        <button className="linkBtn">
-                            Create a user account
-                        </button>
-                    </span>
+					<span className="underline">
+						Not Registered?{" "}
+						<button className="linkBtn">Create a user account</button>
+					</span>
 				</div>
 			</>
 		);
