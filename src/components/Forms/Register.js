@@ -35,8 +35,13 @@ class Register extends Component {
 	};
 
 	render() {
+		// if fireErrors state is not empty
+		let errorNotification = this.state.fireErrors ? (
+			<div className="Error">{this.state.fireErrors}</div>
+		) : null;
 		return (
 			<>
+				{errorNotification}
 				<form>
 					<input
 						type="text"
