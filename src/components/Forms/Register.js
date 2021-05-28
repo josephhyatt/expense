@@ -37,7 +37,7 @@ class Register extends Component {
 					<input
 						type="submit"
 						className="submitBtn"
-						value="ENTER"
+						value="REGISTER"
 						name="submit"
 					/>
 				</form>
