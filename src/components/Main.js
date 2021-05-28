@@ -9,6 +9,10 @@ export default class Main extends Component {
 	};
 
 	render() {
-		return <>Main</>;
+		return (
+			<>
+				<div className="mainBlock">block</div>
+			</>
+		);
 	}
 }
