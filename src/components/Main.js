@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react";
 import React, { Component } from "react";
 import "./Main.css";
+import fire from "../config/Fire";
 import Login from "./Forms/Login";
 import Register from "./Forms/Register";
 
@@ -10,6 +11,22 @@ export default class Main extends Component {
 		loading: true,
 		formSwitcher: false,
 	};
+
+	// calls authListener to check if user is logged in or not
+	componentDidMount() {
+		this.authListener();
+	}
+
+	// checks to see if user has data in firebase db
+	authListener() {
+		fire.auth().onAuthStateChanged((user) => {
+			if (user) {
+				this.setState({ user });
+			} else {
+				this.setState({ user: null });
+			}
+		});
+	}
 
 	// switch between login and register forms
 	formSwitcher = (action) => {
@@ -27,7 +44,7 @@ export default class Main extends Component {
 		return (
 			<>
 				<div className="mainBlock">
-					{ form }
+					{form}
 					{/* If formSwitcher is false show "Not Registered Login Form */}
 					{!this.state.formSwitcher ? (
 						<span className="underline">
