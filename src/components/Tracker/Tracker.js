@@ -1,9 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import fire from "../../config/Fire";
 
 class Tracker extends Component {
-    render() {
-        return(<>Tracker</>)
-    }
+	// logout button
+	logout = () => {
+		fire.auth().signOut();
+	};
+
+	render() {
+		return (
+			<>
+				<button onClick={this.logout}>Exit</button>
+			</>
+		);
+	}
 }
 
 export default Tracker;
