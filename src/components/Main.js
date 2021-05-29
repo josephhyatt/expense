@@ -4,6 +4,7 @@ import "./Main.css";
 import fire from "../config/Fire";
 import Login from "./Forms/Login";
 import Register from "./Forms/Register";
+import Tracker from "./Tracker/Tracker";
 
 export default class Main extends Component {
 	state = {
@@ -43,41 +44,47 @@ export default class Main extends Component {
 
 		return (
 			<>
-				<div className="mainBlock">
-					{form}
-					{/* If formSwitcher is false show "Not Registered Login Form */}
-					{!this.state.formSwitcher ? (
-						<span className="underline">
-							Not Registered?{" "}
-							<button
-								// if formSwitcher is false send parameter false otherwise login
-								onClick={() =>
-									this.formSwitcher(
-										!this.state.formSwitcher ? "register" : "login"
-									)
-								}
-								className="linkBtn"
-							>
-								Create a user account
-							</button>
-						</span>
-					) : (
-						<span className="underline">
-							Have an Account?{" "}
-							<button
-								// if formSwitcher is false send parameter false otherwise login
-								onClick={() =>
-									this.formSwitcher(
-										!this.state.formSwitcher ? "register" : "login"
-									)
-								}
-								className="linkBtn"
-							>
-								Sign in here
-							</button>
-						</span>
-					)}
-				</div>
+				{/* if user state is empty than show everything below */}
+				{!this.state.user ? (
+					<div className="mainBlock">
+						{form}
+						{/* If formSwitcher is false show "Not Registered Login Form */}
+						{!this.state.formSwitcher ? (
+							<span className="underline">
+								Not Registered?{" "}
+								<button
+									// if formSwitcher is false send parameter false otherwise login
+									onClick={() =>
+										this.formSwitcher(
+											!this.state.formSwitcher ? "register" : "login"
+										)
+									}
+									className="linkBtn"
+								>
+									Create a user account
+								</button>
+							</span>
+						) : (
+							<span className="underline">
+								Have an Account?{" "}
+								<button
+									// if formSwitcher is false send parameter false otherwise login
+									onClick={() =>
+										this.formSwitcher(
+											!this.state.formSwitcher ? "register" : "login"
+										)
+									}
+									className="linkBtn"
+								>
+									Sign in here
+								</button>
+							</span>
+						)}
+					</div>
+				) : (
+					//  else call Tracker component
+					<Tracker />
+				)}
 			</>
 		);
 	}
