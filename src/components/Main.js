@@ -5,6 +5,7 @@ import fire from "../config/Fire";
 import Login from "./Forms/Login";
 import Register from "./Forms/Register";
 import Tracker from "./Tracker/Tracker";
+import Spinner from "../assets/loader.gif";
 
 export default class Main extends Component {
 	state = {
@@ -41,6 +42,17 @@ export default class Main extends Component {
 	render() {
 		// if formSwitcher is false, assign Login, else assign Register component
 		const form = !this.state.formSwitcher ? <Login /> : <Register />;
+
+		// show loading icon if user state is 1 meaning user has no data from firebase
+		if (this.state.user === 1) {
+			return (
+				<div className="mainBlock">
+					<div className="Spinner">
+						<img src={Spinner} alt="Spinner" className="ImgSpinner" />
+					</div>
+				</div>
+			);
+		}
 
 		return (
 			<>
