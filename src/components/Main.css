@@ -28,3 +28,7 @@
 .Spinner > .ImgSpinner {
 	max-width: 230px;
 }
+
+.linkBtn {
+	cursor: pointer;
+}
