@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import fire from "../../config/Fire";
+import "./Tracker.css";
 
 class Tracker extends Component {
 	// logout button
@@ -9,9 +10,15 @@ class Tracker extends Component {
 
 	render() {
 		return (
-			<>
-				<button onClick={this.logout}>Exit</button>
-			</>
+			// main block of the dashboard
+			<div className="trackerBlock">
+				<div className="welcome">
+					<span>Hi, Username!</span>
+					<button className="exit" onClick={this.logout}>
+						Exit
+					</button>
+				</div>
+			</div>
 		);
 	}
 }
