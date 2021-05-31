@@ -41,8 +41,36 @@ class Tracker extends Component {
 				price: price,
 				user_id: currentUID,
 			});
-
-			console.log(BackUpState);
+			// push transaction to firebase database
+			fire
+				.database()
+				.ref("Transactions/" + currentUID)
+				.push({
+					id: BackUpState.length + 1,
+					name: transactionName,
+					type: transactionType,
+					price: price,
+					user_id: currentUID,
+				})
+				// if callback success
+				.then((data) => {
+					//success callback
+					console.log("success callback");
+					this.setState({
+						transactions: BackUpState,
+						money:
+							transactionType === "deposit"
+								? money + parseFloat(price)
+								: money - parseFloat(price),
+						transactionName: "",
+						transactionType: "",
+						price: "",
+					});
+				})
+				.catch((error) => {
+					//error callback
+					console.log("error ", error);
+				});
 		}
 	};
 
