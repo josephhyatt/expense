@@ -18,12 +18,32 @@ class Tracker extends Component {
 		fire.auth().signOut();
 	};
 
-	//
+	// keeps track of assign event type
 	handleChange = (input) => (event) => {
 		this.setState({
 			// if value is different than 0 assign event target value
 			[input]: event.target.value !== "0" ? event.target.value : "",
 		});
+	};
+
+	// add transaction
+	addNewTransaction = () => {
+		const { transactionName, transactionType, price, currentUID, money } =
+			this.state;
+
+		// validation
+		if (transactionName && transactionType && price) {
+			const BackUpState = this.state.transactions;
+			BackUpState.push({
+				id: BackUpState.length + 1,
+				name: transactionName,
+				type: transactionType,
+				price: price,
+				user_id: currentUID,
+			});
+
+			console.log(BackUpState);
+		}
 	};
 
 	render() {
@@ -67,8 +87,13 @@ class Tracker extends Component {
 									onChange={this.handleChange("price")}
 								/>
 							</div>
-							<button className="addTransaction">+ Add Transaction</button>
 						</form>
+						<button
+							className="addTransaction"
+							onClick={() => this.addNewTransaction()}
+						>
+							+ Add Transaction
+						</button>
 					</div>
 				</div>
 
