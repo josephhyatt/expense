@@ -41,15 +41,15 @@ class Tracker extends Component {
 					</div>
 				</div>
 
-                <div className="latestTransactions">
-                    <p>Latest Transactions</p>
-                    <ul>
-                        <li>
-                            <div>ATM Deposit</div>
-                            <div>+$5</div>
-                        </li>
-                    </ul>
-                </div>
+				<div className="latestTransactions">
+					<p>Latest Transactions</p>
+					<ul>
+						<li>
+							<div>ATM Deposit</div>
+							<div>+$5</div>
+						</li>
+					</ul>
+				</div>
 			</div>
 		);
 	}
