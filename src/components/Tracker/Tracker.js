@@ -3,6 +3,16 @@ import fire from "../../config/Fire";
 import "./Tracker.css";
 
 class Tracker extends Component {
+	//
+	state = {
+		transactions: [],
+		money: 0,
+
+		transactionName: "",
+		transactionType: "",
+		price: "",
+		currentUID: fire.auth().currentUser.uid,
+	};
 	// logout button
 	logout = () => {
 		fire.auth().signOut();
