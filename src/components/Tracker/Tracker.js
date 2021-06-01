@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import fire from "../../config/Fire";
 import "./Tracker.css";
+import Transaction from "./Transaction/Transaction";
 
 class Tracker extends Component {
 	// keeps track of signed in user
@@ -46,7 +47,7 @@ class Tracker extends Component {
 				.database()
 				.ref("Transactions/" + currentUID)
 				.push({
-					id: BackUpState.length + 1,
+					id: BackUpState.length,
 					name: transactionName,
 					type: transactionType,
 					price: price,
@@ -74,6 +75,38 @@ class Tracker extends Component {
 		}
 	};
 
+	// a component that fire before the app has been mounted
+	// displays transactions from db
+	componentWillMount() {
+		const { currentUID, money } = this.state;
+		let totalMoney = money;
+		const BackUpState = this.state.transactions;
+		fire
+			.database()
+			.ref("Transactions/" + currentUID)
+			.once("value", (snapshot) => {
+				// console.log(snapshot);
+				snapshot.forEach((childSnapshot) => {
+					totalMoney =
+						childSnapshot.val().type === "deposit"
+							? parseFloat(childSnapshot.val().price) + totalMoney
+							: totalMoney - parseFloat(childSnapshot.val().price);
+
+					BackUpState.push({
+						id: childSnapshot.val().id,
+						name: childSnapshot.val().name,
+						type: childSnapshot.val().type,
+						price: childSnapshot.val().price,
+						user_id: childSnapshot.val().user_id,
+					});
+				});
+				this.setState({
+					transactions: BackUpState,
+					money: totalMoney,
+				});
+			});
+	}
+
 	render() {
 		var currentUser = fire.auth().currentUser;
 		return (
@@ -85,7 +118,7 @@ class Tracker extends Component {
 						Exit
 					</button>
 				</div>
-				<div className="totalMoney">$145</div>
+				<div className="totalMoney">${this.state.money}</div>
 
 				<div className="newTransactionBlock">
 					<div className="newTransaction">
@@ -128,10 +161,14 @@ class Tracker extends Component {
 				<div className="latestTransactions">
 					<p>Latest Transactions</p>
 					<ul>
-						<li>
-							<div>ATM Deposit</div>
-							<div>+$5</div>
-						</li>
+						{Object.keys(this.state.transactions).map((id) => (
+							<Transaction
+								key={id}
+								type={this.state.transactions[id].type}
+								name={this.state.transactions[id].name}
+								price={this.state.transactions[id].price}
+							/>
+						))}
 					</ul>
 				</div>
 			</div>
